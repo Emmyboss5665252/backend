@@ -5,8 +5,8 @@ from sqlalchemy.orm import sessionmaker
 
 username = "root"
 password = "emmyboy5665252"
-database = "ticketing-live"
-host = "ticketing-live.ckpe5punvkny.eu-west-2.rds.amazonaws.com"
+database = "vue3app"
+host = "vue3app.ckpe5punvkny.eu-west-2.rds.amazonaws.com"
 
 SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{username}:{password}@{host}/{database}"
 

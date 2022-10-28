@@ -13,3 +13,5 @@ class User(Base):
     password = Column(String(255))
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+    

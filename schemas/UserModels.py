@@ -2,6 +2,7 @@ from typing import List, Union, Optional
 from pydantic import BaseModel, EmailStr, validator
 
 
+
 class RequestModel(BaseModel):
     name: str
     email: EmailStr

@@ -12,6 +12,7 @@ def addNew(db, payload):
         Category(project_id=project.id, title="To-Do", color="#ea580c"),
         Category(project_id=project.id, title="Doing", color="#ea580c"),
         Category(project_id=project.id, title="Code Review", color="#ea580c"),
+        Category(project_id=project.id, title="merge Code", color="#2563eb"),
         Category(project_id=project.id, title="Testing", color="#ea580c"),
         Category(project_id=project.id, title="Done", color="#16a34a"),
     ]

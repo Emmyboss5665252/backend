@@ -1,14 +1,22 @@
-from fastapi import FastAPI, Depends, Response, Request
+from fastapi import FastAPI,  Depends, Response, Request
 from fastapi.responses import JSONResponse
 from models import Card, User, Project, Category
 from database import get_db, engine
 from sqlalchemy.orm import Session
+ 
 
 from fastapi.middleware.cors import CORSMiddleware
 from cors import origins
 from schemas import UserModels, CardModels, CategoryModels, ProjectModels
 from scripts import user_script, card_script, category_script, project_script
 from typing import List, Optional
+
+import asyncio
+import logging
+
+
+
+
 
 
 from jwttoken import generate_new_accesstoken, hasValidToken, refreshAccessToken
@@ -85,7 +93,7 @@ def updateCardText(card:CardModels.UpdateTextModel, db: Session=Depends(get_db))
     return card_script.updateCardText(db, card)
 
 @app.post("/update_card_rank", status_code=200)
-def updateCardRank(cards:dict = {"cards": List[CardModels.UpdateRankModel]}, db: Session=Depends(get_db)):
+def updateCardRank(cards:dict ,db: Session=Depends(get_db)):
     return card_script.updateCardRank(db, cards["cards"])
 
 # delete card
@@ -118,3 +126,28 @@ def refresh(token : Optional[str], request : Request):
         response.set_cookie(key="access_token", value=check["access_token"], secure=True, expires=10 * 60 * 60)
         return response 
     return check
+
+
+from starlette.requests import Request
+from starlette.staticfiles import StaticFiles
+from starlette.testclient import TestClient
+
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+@app.get("/timed")
+async def get_timed() -> None:
+    await asyncio.sleep(0.05)
+
+
+@app.get("/untimed")
+async def get_untimed() -> None:
+    await asyncio.sleep(0.1)
+
+
+@app.get("/timed-intermediate")
+async def get_with_intermediate_timing(request: Request) -> None:
+    await asyncio.sleep(0.1)
